@@ -1,3 +1,14 @@
+<!--
+  Chrome New Tab Dashboard
+  A beautiful, personalized new tab experience for Chrome
+  
+  Features: Dynamic wallpapers, live weather, interactive calendar,
+  multi-engine search, daily quotes, AI access, and app dock
+  
+  Author: Suvhajit Majumder
+  Version: 1.0
+  License: MIT
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,15 +69,31 @@
         <a href="https://gemini.google.com" target="_blank">Gemini</a>
       </div>
 
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button id="prevMonth">‹</button>
+          <span id="monthYear"></span>
+          <button id="nextMonth">›</button>
+        </div>
+        <div class="calendar-grid" id="calendar"></div>
+      </div>
+
     </section>
   </main>
 
+  <div class="quote-section">
+    <div class="quote-card">
+      <div class="quote-text" id="quote">"Loading inspiration..."</div>
+      <div class="quote-author" id="author">- Daily Wisdom</div>
+    </div>
+  </div>
+
   <footer class="dock">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-    <img src="https://cdn-icons-png.flaticon.com/512/2504/2504923.png" alt="LinkedIn">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" data-url="https://youtube.com">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" data-url="https://gmail.com">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" data-url="https://web.telegram.org">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" data-url="https://web.whatsapp.com">
+    <img src="https://cdn-icons-png.flaticon.com/512/2504/2504923.png" alt="LinkedIn" data-url="https://linkedin.com">
   </footer>
 
   <script src="script.js"></script>

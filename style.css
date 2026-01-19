@@ -11,6 +11,7 @@
     --text-main: #1f2933;
     --accent: #3b82f6;
     --widget-inner: rgba(255, 255, 255, 0.8);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -28,6 +29,23 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    max-width: 1400px;
+    width: 100%;
+    padding: 40px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ================= LAYOUT ================= */
@@ -91,9 +109,10 @@ body {
 
 /* ================= WIDGETS ================= */
 .widgets {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
 }
 
 .weather-card, .card-search {
@@ -102,6 +121,13 @@ body {
     border-radius: 24px;
     padding: 24px;
     border: 1px solid rgba(255,255,255,0.3);
+    transition: var(--transition);
+    transform: translateY(0);
+}
+
+.weather-card:hover, .card-search:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .humidity-bar {
@@ -148,6 +174,11 @@ body {
     outline: none;
     background: transparent;
     font-size: 1rem;
+    transition: var(--transition);
+}
+
+.search-bar input:focus {
+    transform: scale(1.02);
 }
 
 #go {
@@ -157,6 +188,12 @@ body {
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
+    transition: var(--transition);
+}
+
+#go:hover {
+    background: #2563eb;
+    transform: scale(1.05);
 }
 
 .engines { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -168,11 +205,18 @@ body {
     cursor: pointer;
     background: var(--widget-inner);
     font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.engine:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .engine.active {
     background: var(--accent);
     color: white;
+    transform: translateY(-2px);
 }
 
 /* ================= AI & DOCK ================= */
@@ -189,11 +233,174 @@ body {
     color: var(--text-main);
     font-weight: bold;
     border: 1px solid rgba(255,255,255,0.3);
+    transition: var(--transition);
+}
+
+.ai-links a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* ================= QUOTES ================= */
+.quote-section {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 999;
+}
+
+.quote-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.quote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.quote-author {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+/* ================= CALENDAR ================= */
+.calendar-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: var(--transition);
+}
+
+.calendar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.calendar-header button {
+    background: var(--widget-inner);
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.calendar-header button:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.1);
+}
+
+#monthYear {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    text-align: center;
+}
+
+.calendar-day {
+    padding: 6px 2px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.calendar-day:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.calendar-day.today {
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.other-month {
+    opacity: 0.4;
+}
+
+.calendar-weekday {
+    font-weight: bold;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    padding: 4px;
+}
+
+/* ================= EXTRAS ================= */
+/* Subtle glow effect for interactive elements */
+.clock-shape:hover {
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+}
+
+.text-container:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Selection styling */
+::selection {
+    background: var(--accent);
+    color: white;
 }
 
 .dock {
     position: fixed;
-    bottom: 25px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     background: rgba(255,255,255,0.6);
     backdrop-filter: blur(20px);
     padding: 10px 25px;
@@ -201,6 +408,7 @@ body {
     display: flex;
     gap: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
 .dock img { width: 35px; transition: 0.3s; cursor: pointer; }
@@ -208,5 +416,27 @@ body {
 
 /* Mobile View */
 @media (max-width: 800px) {
-    .container { grid-template-columns: 1fr; padding: 20px; }
+    body {
+        align-items: flex-start;
+        overflow-y: auto;
+        padding-bottom: 160px;
+    }
+    
+    .container { 
+        grid-template-columns: 1fr; 
+        padding: 20px;
+        gap: 30px;
+        min-height: 100vh;
+        align-items: flex-start;
+    }
+    
+    .widgets {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .quote-section {
+        width: 95%;
+        bottom: 90px;
+    }
 }

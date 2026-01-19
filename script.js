@@ -1,3 +1,23 @@
+/**
+ * Chrome New Tab Dashboard
+ * A beautiful, feature-rich Chrome extension for personalized new tab experience
+ * 
+ * Features:
+ * - Dynamic wallpapers (32 beautiful backgrounds)
+ * - Real-time analog clock with smooth animations
+ * - Live weather widget with geolocation
+ * - Multi-engine search (DuckDuckGo, Google, Bing, YouTube)
+ * - Interactive calendar with month navigation
+ * - Daily inspirational quotes
+ * - AI quick access (ChatGPT, Gemini)
+ * - App dock with popular web services
+ * - Keyboard shortcuts and responsive design
+ * 
+ * @author Suvhajit Majumder
+ * @version 1.0
+ * @license MIT
+ */
+
 /* 1. RANDOM WALLPAPER FROM LOCAL FOLDER */
 const wallpapers = [
     'wallpapers/504458397_17889939891291569_4717418635984946107_n.jpg',
@@ -100,4 +120,148 @@ navigator.geolocation.getCurrentPosition(pos => {
         document.getElementById("feels").textContent = `Feels ${Math.round(d.main.feels_like)}°C`;
         document.getElementById("location").textContent = d.name;
     }).catch(err => console.log("Weather error or missing API Key"));
+});
+
+/* 6. DOCK FUNCTIONALITY */
+document.querySelectorAll(".dock img").forEach(img => {
+    img.addEventListener("click", () => {
+        window.open(img.dataset.url, "_blank");
+    });
+});
+
+/* 7. KEYBOARD SHORTCUTS */
+document.addEventListener("keydown", (e) => {
+    // Focus search with Ctrl+K or Cmd+K
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        document.getElementById("query").focus();
+    }
+    
+    // Quick search engines with Alt+1,2,3,4
+    if (e.altKey && e.key >= "1" && e.key <= "4") {
+        e.preventDefault();
+        const engines = document.querySelectorAll(".engine");
+        const index = parseInt(e.key) - 1;
+        if (engines[index]) {
+            engines[index].click();
+        }
+    }
+});
+
+/* 8. SMOOTH SCROLLING FOR MOBILE */
+if (window.innerWidth <= 800) {
+    document.documentElement.style.scrollBehavior = "smooth";
+}
+
+/* 9. DYNAMIC GREETING */
+function updateGreeting() {
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
+    const h1 = document.querySelector(".text-container h1");
+    if (h1) {
+        h1.textContent = `${greeting}, Suvhajit Majumder`;
+    }
+}
+updateGreeting();
+
+/* 10. INTERACTIVE CALENDAR */
+let currentDate = new Date();
+const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function generateCalendar(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const today = new Date();
+    
+    document.getElementById("monthYear").textContent = `${monthNames[month]} ${year}`;
+    
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    
+    let calendarHTML = "";
+    
+    // Weekday headers
+    weekdays.forEach(day => {
+        calendarHTML += `<div class="calendar-weekday">${day}</div>`;
+    });
+    
+    // Previous month's trailing days
+    for (let i = firstDay - 1; i >= 0; i--) {
+        calendarHTML += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+    }
+    
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const isToday = year === today.getFullYear() && month === today.getMonth() && day === today.getDate();
+        calendarHTML += `<div class="calendar-day ${isToday ? 'today' : ''}">${day}</div>`;
+    }
+    
+    // Next month's leading days
+    const totalCells = 42; // 6 rows × 7 days
+    const usedCells = weekdays.length + firstDay + daysInMonth;
+    for (let day = 1; usedCells + day - 1 < totalCells; day++) {
+        calendarHTML += `<div class="calendar-day other-month">${day}</div>`;
+    }
+    
+    document.getElementById("calendar").innerHTML = calendarHTML;
+}
+
+document.getElementById("prevMonth").onclick = () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    generateCalendar(currentDate);
+};
+
+document.getElementById("nextMonth").onclick = () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    generateCalendar(currentDate);
+};
+
+generateCalendar(currentDate);
+
+/* 11. DAILY QUOTES */
+const quotes = [
+    { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+    { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+    { text: "Life is what happens to you while you're busy making other plans.", author: "John Lennon" },
+    { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+    { text: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" },
+    { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+    { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+    { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+    { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+    { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" }
+];
+
+function displayDailyQuote() {
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+    const quoteIndex = dayOfYear % quotes.length;
+    const dailyQuote = quotes[quoteIndex];
+    
+    document.getElementById("quote").textContent = `"${dailyQuote.text}"`;
+    document.getElementById("author").textContent = `- ${dailyQuote.author}`;
+}
+
+displayDailyQuote();
+
+/* 12. PERFORMANCE & POLISH */
+// Preload next wallpaper for smoother transitions
+const nextWallpaper = wallpapers[(wallpapers.indexOf(randomWallpaper.split('/')[1]) + 1) % wallpapers.length];
+const img = new Image();
+if (typeof chrome !== 'undefined' && chrome.runtime) {
+    img.src = chrome.runtime.getURL(nextWallpaper);
+} else {
+    img.src = nextWallpaper;
+}
+
+// Add subtle loading animation
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    }, 100);
 });

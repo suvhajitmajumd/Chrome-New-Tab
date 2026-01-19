@@ -60,6 +60,10 @@ const randomWallpaper = wallpapers[Math.floor(Math.random() * wallpapers.length)
 if (typeof chrome !== 'undefined' && chrome.runtime) {
     const wallpaperUrl = chrome.runtime.getURL(randomWallpaper);
     document.body.style.backgroundImage = `url("${wallpaperUrl}")`;
+} else if (typeof browser !== 'undefined' && browser.runtime) {
+    // Firefox WebExtensions API
+    const wallpaperUrl = browser.runtime.getURL(randomWallpaper);
+    document.body.style.backgroundImage = `url("${wallpaperUrl}")`;
 } else {
     // Fallback for testing outside extension
     document.body.style.backgroundImage = `url("${randomWallpaper}")`;
@@ -253,6 +257,8 @@ const nextWallpaper = wallpapers[(wallpapers.indexOf(randomWallpaper.split('/')[
 const img = new Image();
 if (typeof chrome !== 'undefined' && chrome.runtime) {
     img.src = chrome.runtime.getURL(nextWallpaper);
+} else if (typeof browser !== 'undefined' && browser.runtime) {
+    img.src = browser.runtime.getURL(nextWallpaper);
 } else {
     img.src = nextWallpaper;
 }

@@ -150,10 +150,13 @@ Edit CSS variables in `style.css` (lines 8-14):
 ## 🔧 Browser Compatibility
 
 - ✅ **Chrome** 88+ (Primary target)
+- ✅ **Firefox** 57+ (Full support with manifest v2)
 - ✅ **Edge** 88+ (Chromium-based)
 - ✅ **Opera** 74+ (Chromium-based)
-- ⚠️ **Firefox** (Requires manifest v2 conversion)
 - ⚠️ **Safari** (Limited extension support)
+
+### 🦊 **Firefox Installation**
+Your extension is **fully compatible** with Firefox! See [FIREFOX-INSTALL.md](FIREFOX-INSTALL.md) for detailed installation instructions.
 
 ## 📝 License
 

@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Custom New Tab",
+  "version": "1.0",
+  "description": "A custom new tab page with wallpapers and widgets",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["wallpapers/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

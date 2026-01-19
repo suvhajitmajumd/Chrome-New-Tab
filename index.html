@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom New Tab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <main class="container">
+
+    <section class="hero">
+      <div class="clock-shape">
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+      </div>
+      <h1>Hello, Imtiyaz</h1>
+      <p id="date"></p>
+    </section>
+
+    <section class="widgets">
+
+      <div class="weather-card">
+        <div class="weather-info">
+          <span id="weather-desc">Loading...</span>
+          <h2 id="temp">--°</h2>
+          <div class="humidity-bar">
+            <div id="humidity-fill" class="progress"></div>
+          </div>
+          <span id="humidity">Humidity --%</span>
+        </div>
+        <div class="weather-footer">
+          <span class="pill" id="feels">Feels --°C</span>
+          <span class="pill blue" id="location">Detecting...</span>
+        </div>
+      </div>
+
+      <div class="card-search">
+        <div class="search-bar">
+          <input id="query" type="text" placeholder="Search the web..." />
+          <button id="go">Enter</button>
+        </div>
+        <div class="engines">
+          <button class="engine active" data-url="https://duckduckgo.com/?q=">Duck</button>
+          <button class="engine" data-url="https://google.com/search?q=">Google</button>
+          <button class="engine" data-url="https://bing.com/search?q=">Bing</button>
+          <button class="engine" data-url="https://youtube.com/results?search_query=">YouTube</button>
+        </div>
+      </div>
+
+      <div class="ai-links">
+        <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
+        <a href="https://gemini.google.com" target="_blank">Gemini</a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="dock">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+    <img src="https://cdn-icons-png.flaticon.com/512/2504/2504923.png" alt="LinkedIn">
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

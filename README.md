@@ -150,7 +150,7 @@ Edit CSS variables in `style.css` (lines 8-14):
 ## 🔧 Browser Compatibility
 
 - ✅ **Chrome** 88+ (Primary target)
-- ✅ **Firefox** 57+ (Full support with manifest v2)
+- ✅ **Firefox** 57+ (Full support with manifest v2)(still working)
 - ✅ **Edge** 88+ (Chromium-based)
 - ✅ **Opera** 74+ (Chromium-based)
 - ⚠️ **Safari** (Limited extension support)

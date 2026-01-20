@@ -110,7 +110,7 @@ document.getElementById("query").addEventListener("keypress", (e) => {
 
 /* 5. WEATHER (OpenWeatherMap) */
 // Note: Replace 'YOUR_API_KEY' with a real one from openweathermap.org
-const API_KEY = 'YOUR_API_KEY'; 
+const API_KEY = 'ecacbed1d03d3141ee4e914c06c847e8'; //This API key Belongs To Dev.... Please Change The API key with your key
 
 navigator.geolocation.getCurrentPosition(pos => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=metric&appid=${API_KEY}`)
